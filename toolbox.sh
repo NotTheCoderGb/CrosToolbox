@@ -18,6 +18,8 @@ if [[ $option -eq 1 ]]; then
     echo "[1] Cowsay"
     echo "[2] NodeJs + NPM"
     echo "[3] Flatpak + Gnome Software Center"
+    echo "[4] Firefox (DEB)"
+    echo "[5] Firefox (Flatpak) [Requires Flatpak!]"
     read softwareoption
     
     if [[ $softwareoption -eq 1 ]]; then
@@ -36,6 +38,8 @@ if [[ $option -eq 1 ]]; then
         echo "Now you have to follow the instructions given on your browser"
         sleep 5
         xdg-open https://raw.githubusercontent.com/NotTheCoderGb/CrosToolbox/main/containers.MD
+    elif [[ $softwareoption -eq 4]]; then
+        sudo add-apt-repository ppa:mozillateam/ppa
     else
         echo "Please select a valid option!"
     fi
