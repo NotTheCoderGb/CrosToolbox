@@ -24,6 +24,7 @@ if [[ $option -eq 1 ]]; then
     echo "[4] Firefox (Flatpak)"
     echo "[5] Snap + Gnome Software Center"
     echo "[6] Visual Studio Code"
+    echo "[7] WineHQ"
     read softwareoption
 
     if [[ $softwareoption -eq 1 ]]; then
@@ -57,6 +58,33 @@ if [[ $option -eq 1 ]]; then
         else
             curl -L "https://objects.githubusercontent.com/github-production-release-asset-2e65be/73808440/45e5bc00-722d-11ea-93f8-c7974bfb6275?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230518%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230518T154020Z&X-Amz-Expires=300&X-Amz-Signature=2be29cddc1e7533d1e076f812caea5417474dc3086bf9251e9dceb5627dac3a8&X-Amz-SignedHeaders=host&actor_id=84812950&key_id=0&repo_id=73808440&response-content-disposition=attachment%3B%20filename%3Dcode-oss_1.44.0-1585531075_arm64.deb&response-content-type=application%2Foctet-stream" > vscodearm64.deb
             sudo apt install ./vscodearm64.deb
+        fi
+    elif [[ $softwareoption -eq 7 ]]; then
+        sudo dpkg --add-architecture i386 
+        sudo mkdir -pm755 /etc/apt/keyrings
+        sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+        sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bullseye/winehq-bullseye.sources
+        sudo apt update
+        echo ""
+        echo ""
+        echo ""
+        echo ""
+        echo ""
+        echo "Select WineHQ version!"
+        echo "[1] Stable"
+        echo "[2] Development"
+        echo "[3] Staging"
+        read wineversion
+        if [[ $wineversion -eq 1 ]]; then
+            sudo apt install --install-recommends winehq-stable
+        elif [[ $wineversion -eq 2 ]]; then
+            sudo apt install --install-recommends winehq-devel
+        elif [[ $wineversion -eq 3 ]]; then
+            sudo apt install --install-recommends winehq-staging
+        else
+            echo "Invalid Option! Installing Stable!"
+            sleep 5
+            sudo apt install --install-recommends winehq-stable
         fi
     else
         echo "Please select a valid option!"
