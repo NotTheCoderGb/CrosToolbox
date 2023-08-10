@@ -86,6 +86,8 @@ if [[ $option -eq 1 ]]; then
             sleep 5
             sudo apt install --install-recommends winehq-stable
         fi
+    elif [[ $softwareoption -eq 8 ]]; then
+        sudo apt install neofetch
     else
         echo "Please select a valid option!"
     fi
