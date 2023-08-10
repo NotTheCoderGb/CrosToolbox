@@ -18,25 +18,26 @@ read option
 
 if [[ $option -eq 1 ]]; then
     echo "Software Available:"
-    echo "[1] Cowsay"
+    echo "[1] Cowsay (Best one)"
     echo "[2] NodeJs + NPM"
     echo "[3] Flatpak + Gnome Software Center"
     echo "[4] Firefox (Flatpak)"
     echo "[5] Snap + Gnome Software Center"
     echo "[6] Visual Studio Code"
     echo "[7] WineHQ"
+    echo "[8] Nix (Package Manager)"
     read softwareoption
 
     if [[ $softwareoption -eq 1 ]]; then
-        sudo apt install cowsay
+        sudo apt install cowsay -y
     elif [[ $softwareoption -eq 2 ]]; then
         sudo apt-get install curl
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs && sudo apt-get install -y npm
     elif [[ $softwareoption -eq 3 ]]; then
         sudo apt install flatpak
         flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        sudo apt install gnome-software-common
-        sudo apt install gnome-software-plugin-flatpak
+        sudo apt install gnome-software-common -y
+        sudo apt install gnome-software-plugin-flatpak -y
         clear
         echo "Now you have to follow the instructions given on your browser"
         echo "Now you have to follow the instructions given on your browser"
@@ -46,11 +47,11 @@ if [[ $option -eq 1 ]]; then
     elif [[ $softwareoption -eq 4 ]]; then
         flatpak install flathub org.mozilla.firefox
     elif [[ $softwareoption -eq 5 ]]; then
-        sudo apt install libsquashfuse0 squashfuse fuse
-        sudo apt install snapd
+        sudo apt install libsquashfuse0 squashfuse fuse -y
+        sudo apt install snapd -y
         sudo snap install core
-        sudo apt install gnome-software-common
-        sudo apt install gnome-software-plugin-snap
+        sudo apt install gnome-software-common -y
+        sudo apt install gnome-software-plugin-snap -y
     elif [[ $softwareoption -eq 6 ]]; then   
         if [ "$architecture" == "x86_64" ]; then
             curl -L "https://go.microsoft.com/fwlink/?LinkID=760868" > vscode.deb
@@ -76,18 +77,18 @@ if [[ $option -eq 1 ]]; then
         echo "[3] Staging"
         read wineversion
         if [[ $wineversion -eq 1 ]]; then
-            sudo apt install --install-recommends winehq-stable
+            sudo apt install --install-recommends winehq-stable -y
         elif [[ $wineversion -eq 2 ]]; then
-            sudo apt install --install-recommends winehq-devel
+            sudo apt install --install-recommends winehq-devel -y
         elif [[ $wineversion -eq 3 ]]; then
-            sudo apt install --install-recommends winehq-staging
+            sudo apt install --install-recommends winehq-staging -y
         else
             echo "Invalid Option! Installing Stable!"
             sleep 5
-            sudo apt install --install-recommends winehq-stable
+            sudo apt install --install-recommends winehq-stable -y
         fi
     elif [[ $softwareoption -eq 8 ]]; then
-        sudo apt install neofetch
+        sh <(curl -L https://nixos.org/nix/install) --no-daemon
     else
         echo "Please select a valid option!"
     fi
